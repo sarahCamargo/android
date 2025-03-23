@@ -2,74 +2,68 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ResultActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/nomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calculadora IMC"
+        android:text="Nome: "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.143" />
+
+    <TextView
+        android:id="@+id/pesoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Peso: "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nomeText"
+        app:layout_constraintVertical_bias="0.032" />
+
+    <TextView
+        android:id="@+id/alturaText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Altura: "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintTop_toBottomOf="@+id/pesoText"
+        app:layout_constraintVertical_bias="0.034" />
 
-    <EditText
-        android:id="@+id/pesoEdit"
+    <TextView
+        android:id="@+id/imcText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Peso (kg)"
-        android:inputType="text"
+        android:text="IMC "
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.399" />
+        app:layout_constraintTop_toBottomOf="@+id/alturaText"
+        app:layout_constraintVertical_bias="0.166" />
 
-    <EditText
-        android:id="@+id/alturaEdit"
+    <TextView
+        android:id="@+id/mensagemText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Altura (m)"
-        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pesoEdit"
-        app:layout_constraintVertical_bias="0.08" />
-
-    <Button
-        android:id="@+id/calcularButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Calcular IMC"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alturaEdit"
-        app:layout_constraintVertical_bias="0.453" />
-
-    <EditText
-        android:id="@+id/nomeEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Nome"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/pesoEdit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.883" />
-
+        app:layout_constraintTop_toBottomOf="@+id/imcText"
+        app:layout_constraintVertical_bias="0.048" />
 </androidx.constraintlayout.widget.ConstraintLayout>
