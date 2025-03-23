@@ -1,15 +1,12 @@
 package com.ifsc.imc;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import org.w3c.dom.Text;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -18,20 +15,33 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        Bundle extras = getIntent().getExtras();
+        setExtras();
 
-        if (extras != null) {
-            TextView nome = findViewById(R.id.nomeText);
-            TextView peso = findViewById(R.id.pesoText);
-            TextView altura = findViewById(R.id.alturaText);
-            TextView imc = findViewById(R.id.imcText);
-            TextView mensagem = findViewById(R.id.mensagemText);
+        Button voltarButton = findViewById(R.id.voltarButton);
 
-            nome.append(extras.getString("nome"));
-            peso.append(extras.getString("peso"));
-            altura.append(extras.getString("altura"));
-            imc.append(extras.getString("imc"));
-            mensagem.setText(extras.getString("mensagemImc"));
+        voltarButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    private void setExtras() {
+        TextView nome = findViewById(R.id.nomeText);
+        TextView peso = findViewById(R.id.pesoText);
+        TextView altura = findViewById(R.id.alturaText);
+        TextView imc = findViewById(R.id.imcText);
+        TextView mensagem = findViewById(R.id.mensagemText);
+        ImageView image = findViewById(R.id.imageView2);
+
+        IMCInfo imcInfo = (IMCInfo) getIntent().getSerializableExtra("imcInfo");
+
+        if (imcInfo != null) {
+            nome.append(imcInfo.getNome());
+            peso.append(imcInfo.getPeso());
+            altura.append(imcInfo.getAltura());
+            imc.append(imcInfo.getImc());
+            mensagem.setText(imcInfo.getMensagem());
+            image.setImageResource(imcInfo.getImagem());
         }
     }
 }

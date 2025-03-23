@@ -1,10 +1,13 @@
 package com.ifsc.imc;
 
-import android.annotation.SuppressLint;
+import static android.widget.Toast.LENGTH_SHORT;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +16,6 @@ import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
-    @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,49 +30,87 @@ public class MainActivity extends AppCompatActivity {
             EditText peso = findViewById(R.id.pesoEdit);
             EditText altura = findViewById(R.id.alturaEdit);
 
-            String imc = calcularIMC(peso.getText().toString(), altura.getText().toString());
-            String mensagemImc = getMensagemImc(imc);
+            IMCInfo imcInfo = new IMCInfo();
+            imcInfo.setNome(nome.getText().toString());
+            imcInfo.setPeso(peso.getText().toString());
+            imcInfo.setAltura(altura.getText().toString());
+
+            calcularIMC(imcInfo);
+
+            if (imcInfo.getImc() == null) {
+                return;
+            }
+
+            setImcMessageAndImage(imcInfo);
 
             Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
 
-            intent.putExtra("nome", nome.getText().toString());
-            intent.putExtra("peso", peso.getText().toString());
-            intent.putExtra("altura", altura.getText().toString());
-            intent.putExtra("imc", imc);
-            intent.putExtra("mensagemImc", mensagemImc);
+            intent.putExtra("imcInfo", imcInfo);
 
             startActivity(intent);
         });
     }
 
-    private String calcularIMC(String peso, String altura) {
-        double alturaDb = Double.parseDouble(altura);
-        double pesoDb = Double.parseDouble(peso);
+    private void calcularIMC(IMCInfo imcInfo) {
+        try {
+            double alturaDb = Double.parseDouble(imcInfo.getAltura());
+            double pesoDb = Double.parseDouble(imcInfo.getPeso());
 
-        double resultado = pesoDb / (alturaDb * alturaDb);
+            if (pesoDb < 0 || pesoDb > 350) {
+                Toast.makeText(this, "Peso inválido. Informe um valor entre 0 até 350kg.", LENGTH_SHORT).show();
+                return;
+            }
 
-        DecimalFormat format = new DecimalFormat("#.#");
+            if (alturaDb < 0 || alturaDb > 3.0) {
+                Toast.makeText(this, "Altura inválida. Informe um valor entre 0 até 3m.", LENGTH_SHORT).show();
+                return;
+            }
 
-        return format.format(resultado);
+            double resultado = pesoDb / (alturaDb * alturaDb);
+
+            DecimalFormat format = new DecimalFormat("#.#");
+
+            imcInfo.setImc(format.format(resultado));
+        } catch (NumberFormatException e) {
+            Log.e("IMC", "Formato de Peso/Altura inválido", e);
+            Toast.makeText(this, "Formato de Peso/Altura inválido", LENGTH_SHORT).show();
+        }
     }
 
-    private String getMensagemImc(String imc) {
-        double imcDb = Double.parseDouble(imc);
-        if (imcDb < 18.5) {
-            return "Abaixo do peso";
+    private void setImcMessageAndImage(IMCInfo imcInfo) {
+        try {
+            double imcDb = Double.parseDouble(imcInfo.getImc());
+
+            if (imcDb < 18.5) {
+                imcInfo.setMensagem("Abaixo do peso");
+                imcInfo.setImagem(R.drawable.abaixopeso);
+                return;
+            }
+            if (imcDb > 18.6 && imcDb < 24.9) {
+                imcInfo.setMensagem("Peso Ideal. Parabéns!");
+                imcInfo.setImagem(R.drawable.normal);
+                return;
+            }
+            if (imcDb > 25.0 && imcDb < 29.9) {
+                imcInfo.setMensagem("Levemente acima do peso");
+                imcInfo.setImagem(R.drawable.sobrepeso);
+                return;
+            }
+            if (imcDb > 30.0 && imcDb < 34.9) {
+                imcInfo.setMensagem("Obesidade grau |");
+                imcInfo.setImagem(R.drawable.obesidade1);
+                return;
+            }
+            if (imcDb > 35.0 && imcDb < 39.9) {
+                imcInfo.setMensagem("Obesidade grau || (severa)");
+                imcInfo.setImagem(R.drawable.obesidade2);
+                return;
+            }
+            imcInfo.setMensagem("Obesidade grau ||| (mórbida)");
+            imcInfo.setImagem(R.drawable.obesidade3);
+        } catch (NumberFormatException e) {
+            Log.e("IMC", "Formato de IMC inválido", e);
+            Toast.makeText(this, "Formato de IMC inválido", LENGTH_SHORT).show();
         }
-        if (imcDb > 18.6 && imcDb < 24.9) {
-            return "Peso Ideal. Parabéns!";
-        }
-        if (imcDb > 25.0 && imcDb < 29.9) {
-            return "Levemente acima do peso";
-        }
-        if (imcDb > 30.0 && imcDb < 34.9) {
-            return "Obesidade grau |";
-        }
-        if (imcDb > 35.0 && imcDb < 39.9) {
-            return "Obesidade grau || (severa)";
-        }
-        return "Obesidade grau ||| (mórbida)";
     }
 }

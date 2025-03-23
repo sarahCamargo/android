@@ -56,7 +56,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alturaEdit"
-        app:layout_constraintVertical_bias="0.453" />
+        app:layout_constraintVertical_bias="0.077" />
 
     <EditText
         android:id="@+id/nomeEdit"
@@ -71,5 +71,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.883" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="279dp"
+        android:layout_height="255dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calcularButton"
+        app:srcCompat="@drawable/perfil" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
