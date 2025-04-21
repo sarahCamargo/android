@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Layouts</string>
+    <string name="form">Formulário</string>
+    <string name="send">Enviar</string>
+    <string name="pos">Pós Graduação</string>
+    <string name="graduacao">Graduação</string>
+    <string name="tecnico">Curso Técnico</string>
+    <string name="e_mail">E-mail</string>
+    <string name="name">Nome</string>
+    <string name="endereco">Endereço</string>
+    <string name="cidade">Cidade</string>
+    <string name="telefone">Telefone</string>
+    <string name="cep">CEP</string>
+    <string name="aniversario">Aniversário</string>
+</resources>
